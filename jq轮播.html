@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .banner {
+            width: 800px;
+            height: 400px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .banner_img_a {
+            position: absolute;
+
+        }
+
+        .list img {
+            width: 100%;
+            height: 100%;
+            /* display: none; */
+        }
+
+        .banner .num {
+            color: white;
+            position: absolute;
+            bottom: -40px;
+            left: 10px;
+        }
+
+        .banner span {
+            background-color: rgba(0, 0, 0, 0.63);
+            padding: 4px 9px;
+            border: 2px solid rgba(0, 0, 0, 0.63);
+        }
+
+        .cur {
+            border-color: orange !important;
+        }
+
+        .page {
+            color: white;
+            position: absolute;
+            bottom: -40px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <a href="" class="list" style="display: block;">
+            <img src="./img/qq.jpg" alt="">
+        </a>
+        <a href="" class="list" style="display: none;">
+            <img src="./img/ww.jpg" alt="">
+        </a>
+        <a href="" class="list" style="display: none;">
+            <img src="./img/ee.jpg" alt="">
+        </a>
+        <a href="" class="list" style="display: none;">
+            <img src="./img/timg (1).jpg" alt="">
+        </a>
+        <a href="" class="list" style="display: none;">
+            <img src="./img/timg (2).jpg" alt="">
+        </a>
+        <!-- 轮播序号 -->
+        <div class="num">
+            <span class="cur">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
+        <!-- 上一张下一张 -->
+        <div class="page">
+            <span class="prev">&lt;</span>
+            <span class="next">&gt;</span>
+        </div>
+    </div>
+    <script src="./jquery.js"></script>
+    <script>
+        var count = 0;
+        var start
+
+        function move() {
+            count++
+            count = count > $('.list').length - 1 ? 0 : count
+            count = count == -1 ? $('.list').length - 1 : count
+            $('.list').css('display', 'none')
+            $('.list').eq(count).css('display', 'block')
+            $('.num span').removeClass('cur')
+            $('.num span').eq(count).addClass('cur')
+
+            $('.num span').click(function () {
+                clearInterval(start)
+                count = $(this).index() - 1
+                move()
+                start = setInterval(move, 2000)
+            })
+
+        }
+        start = setInterval(move, 2000)
+        $('.page .prev').click(function () {
+            clearInterval(start)
+            count--
+            count = count > $('.list').length - 1 ? 0 : count
+            count = count == -1 ? $('.list').length - 1 : count
+            $('.list').css('display', 'none')
+            $('.list').eq(count).css('display', 'block')
+            $('.num span').removeClass('cur')
+            $('.num span').eq(count).addClass('cur')
+            start = setInterval(move, 2000)
+
+        })
+    </script>
+</body>
+
+</html>
